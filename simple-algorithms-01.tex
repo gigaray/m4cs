@@ -1,0 +1,140 @@
+\documentclass[a4paper, 9pt, english]{article}
+\usepackage[margin=0.5in]{geometry}
+%%%%%%%%%%%%%%%%%%%
+% Packages/Macros %
+%%%%%%%%%%%%%%%%%%%
+% amsmath package draws mathematical symbols smoothly
+% graphicx package is flexible for image insertion
+\usepackage{graphicx, latexsym, amsmath}     % Standard packages
+
+%this package is suitable for the description of algorithms and computer programs
+\usepackage{alltt}
+
+%this package produces hypertext links in the document
+\usepackage[hidelinks, pdftex]{hyperref}
+\usepackage{amssymb}
+\usepackage{authblk}
+\usepackage{ulem}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage[numbers,sort,compress]{natbib}
+\usepackage{setspace}
+\usepackage{bm}
+\usepackage{amsmath}
+
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\newcommand{\doi}[1]{\href{https://doi.org/#1}{\texttt{https://doi.org/#1}}}
+\bibliographystyle{unsrtnat}
+%%%%%%%%%%%
+% Margins %
+%%%%%%%%%%%
+%\addtolength{\textwidth}{0.50in}
+%\addtolength{\textheight}{0.50in}
+%\addtolength{\evensidemargin}{-0.75in}
+%\addtolength{\oddsidemargin}{-0.75in}
+%\addtolength{\topmargin}{.250in}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Theorem/Proof Environments %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheorem{theorem}{Theorem}
+\newenvironment{proof}{\noindent{\bm Proof:}}{$\hfill \Box$ \vspace{10pt}}
+
+%%%%%%%%%%%%
+% Document %
+%%%%%%%%%%%%
+\begin{document}
+\linespread{1.0}
+\title{Cryptographic Primitives and Algorithms in \LaTeX ~}
+\author{AR}
+\maketitle
+
+\begin{abstract}
+This document is a collection of simple sample of cryptographic primitives and algorithms.
+\end{abstract}
+
+\section{Diffie-Hellman Key Exchange}\label{sec:diffie-hellman-key-exchange}
+Diffie-Hellman Key Exchange ~\cite{diffie2022new}  preceeeds several cryptography mechanisms we use today.
+\begin{enumerate}
+\item { Choose Public Parameters}
+
+Two parties, $Alice$ and $Bob$, agree on:
+
+A prime number $p =17 $
+
+A primitive root modulo of $p = 17$, called the generator $g = 3$
+
+
+\item { Generate Private Keys}
+ $Alice$ and $Bob$ picks a private key each (a secret number):
+
+ $Alice$ picks  private key $a = 6$ and only  $Alice$ knows about it
+ 
+  $Bob$ picks  private key $b = 11$ and   only $Bob$ knows about it
+
+These private keys are kept secret.
+
+\item {Compute Public Keys}
+
+Each party computes a public key using the formula:
+
+\begin{equation}
+A = g^a \quad mod \quad  p\label{eq:alice_public}
+\end{equation}
+
+\begin{equation}
+B= g^b \quad mod  \quad p\label{eq:bob_public}
+\end{equation}
+
+Alice computes her public key $A$
+$$A = 3^6 \quad mod \quad  17 $$
+$$A = 15 $$
+
+Bob computes his public key $B$
+$$B = 3^{11} \quad mod \quad  17 $$
+$$B = 7 $$
+
+These public keys are exchanged over the insecure channel
+
+\item { Compute the Shared Secret}
+
+Now each party computes the shared secret $s = s_A = s_B$
+
+At Alice
+\begin{equation}
+s_A= B^a \quad mod  \quad p\label{eq:alice_s_a}
+\end{equation}
+
+At Bob
+\begin{equation}
+s_B= A^b \quad mod  \quad p\label{eq:bob_s_b}
+\end{equation}
+
+Alice computes $s_A$
+\begin{gather*}
+    s_A = 7^6 \quad mod \quad 17\\
+    s_A = 2\\
+\end{gather*}
+
+Bob comptes $s_B$
+\begin{gather*}
+    s_B = 15^{11} \quad mod \quad 17\\
+    s_B = 2\\
+\end{gather*}
+
+Thus, \[s\_A = s_B \]
+
+\end{enumerate}
+
+{\Large Verify}
+
+{\textsf Since } $$(g^a)^b = g^{ab}$$
+
+\textsf{And multiplication is commutative} ${ab = ba}$
+
+\bibliography{m4cs-papers}
+
+
+\end{document}
