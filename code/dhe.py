@@ -59,19 +59,22 @@ def diffie_hellman(g, p, a, b):
 
     return alice_secret, alice_secret == bob_secret
 
+def main():
+    # Example with small numbers
+    p = 23  # A small prime number
+    g = 7  # A primitive root modulo 23
+    a = random.randint(2, 1000)   #15 # Alice's private key
+    b = random.randint(2, 300)   #12 # Bob's private key
 
-# Example with small numbers
-p = 23  # A small prime number
-g = 7  # A primitive root modulo 23
-a = random.randint(2, 1000)   #15 # Alice's private key
-b = random.randint(2, 300)   #12 # Bob's private key
+    # Verify that g is indeed a primitive root modulo p
+    if not is_primitive_root(g, p):
+        print(f"Warning: {g} is not a primitive root modulo {p}")
+    else:
+        print(f"{g} is a primitive root modulo {p}\n")
 
-# Verify that g is indeed a primitive root modulo p
-if not is_primitive_root(g, p):
-    print(f"Warning: {g} is not a primitive root modulo {p}")
-else:
-    print(f"{g} is a primitive root modulo {p}\n")
+    # Run the demonstration
+    secret, success = diffie_hellman(g, p, a, b)
+    print(f"\n Secret is {secret} - Key exchange {'successful ' if success else 'failed'}!")
 
-# Run the demonstration
-secret, success = diffie_hellman(g, p, a, b)
-print(f"\n Secret:{secret} - Key exchange {'successful ' if success else 'failed'}!")
+if __name__ == "__main__":
+    main()
